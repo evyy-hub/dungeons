@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+use crate::combat::combat_stats::CombatStats;
 use crate::systems::health::Health;
 
 #[derive(Component)]
@@ -13,7 +14,7 @@ pub fn setup_player(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    // Spawn du joueur
+    // Spawn player
     commands.spawn((
         Mesh3d(meshes.add(Capsule3d::default())),
         MeshMaterial3d(materials.add(StandardMaterial {
@@ -24,6 +25,7 @@ pub fn setup_player(
         Player {
             pos: Vec3::new(0.0, 1.0, 0.0),
         },
-        Health::new(100.0)
+        Health::new(100.0),
+        CombatStats::new(25.0, 10.0, 0.15, 2.0),
     ));
 }

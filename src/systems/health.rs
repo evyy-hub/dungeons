@@ -32,7 +32,7 @@ impl Health {
             self.current = 0.0;
         } else {
             self.current -= amount;
+            println!("{}", self.current);
         }
     }
-
 }

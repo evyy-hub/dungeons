@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 bevy = { version = "0.18.0", features = ["dynamic_linking", "serialize"] }
+rand = "0.9"
 serde = "1.0.228"
 serde_json = "1.0.149"
 toml = "0.9.8"

@@ -51,7 +51,7 @@ pub fn camera_follow_system(
         return;
     };
 
-    // Rotation uniquement si clic droit
+    // Rotate only on right-click
     if mouse_buttons.pressed(MouseButton::Right) {
         for event in mouse_motion.read() {
             follow.yaw -= event.delta.x * 0.005;
@@ -62,14 +62,14 @@ pub fn camera_follow_system(
     // Clamp vertical
     follow.pitch = follow.pitch.clamp(-1.4, 1.4);
 
-    // Zoom molette
+    // Mouse wheel zoom
     for scroll in mouse_wheel.read() {
         follow.distance -= scroll.y * 0.5;
     }
 
     follow.distance = follow.distance.clamp(3.0, 25.0);
 
-    // Calcul position orbit
+    // Calculate orbit position
     let offset = Vec3::new(
         follow.yaw.cos() * follow.pitch.cos() * follow.distance,
         follow.pitch.sin() * follow.distance + 2.0,
@@ -79,7 +79,7 @@ pub fn camera_follow_system(
     cam_tf.translation = player_tf.translation + offset;
     cam_tf.look_at(player_tf.translation + Vec3::Y * 1.5, Vec3::Y);
 
-    // Lock curseur quand clic droit
+    // Lock cursor on right-click
 
     if mouse_buttons.pressed(MouseButton::Right) {
         cursor.grab_mode = CursorGrabMode::Locked;

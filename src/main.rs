@@ -1,5 +1,6 @@
+use bevy::picking::mesh_picking::MeshPickingPlugin;
 use bevy::prelude::*;
-use dungeons::plugins_def::{GameSystemsPlugin, PlayerSystemPlugin};
+use dungeons::plugins_def::{CombatSystemPlugin, GameSystemsPlugin, PlayerSystemPlugin};
 
 fn main() {
     App::new()
@@ -10,7 +11,9 @@ fn main() {
             }),
             ..default()
         }))
+        .add_plugins(MeshPickingPlugin)
         .add_plugins(GameSystemsPlugin)
         .add_plugins(PlayerSystemPlugin)
+        .add_plugins(CombatSystemPlugin)
         .run();
 }
