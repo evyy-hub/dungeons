@@ -1,5 +1,7 @@
+use avian3d::{PhysicsPlugins, prelude::PhysicsDebugPlugin};
 use bevy::picking::mesh_picking::MeshPickingPlugin;
 use bevy::prelude::*;
+use bevy_mod_outline::{AutoGenerateOutlineNormalsPlugin, OutlinePlugin};
 use dungeons::plugins_def::{CombatSystemPlugin, GameSystemsPlugin, PlayerSystemPlugin};
 
 fn main() {
@@ -11,6 +13,9 @@ fn main() {
             }),
             ..default()
         }))
+        .add_plugins((PhysicsPlugins::default(), PhysicsDebugPlugin::default()))
+        .add_plugins(OutlinePlugin)
+        .add_plugins(AutoGenerateOutlineNormalsPlugin::default())
         .add_plugins(MeshPickingPlugin)
         .add_plugins(GameSystemsPlugin)
         .add_plugins(PlayerSystemPlugin)

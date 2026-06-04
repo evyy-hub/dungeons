@@ -1,3 +1,4 @@
+use crate::player::player_setup::PlayerState;
 use crate::systems::camera::FollowCamera;
 use crate::{player::player_setup::Player, systems::keys::Actions};
 use bevy::prelude::*;
@@ -11,7 +12,7 @@ pub fn update_player(
 ) {
     let delta = time.delta_secs();
 
-    let (mut transform, _player) = match player_q.single_mut() {
+    let (mut transform, mut player) = match player_q.single_mut() {
         Ok(p) => p,
         Err(_) => return,
     };
@@ -31,7 +32,7 @@ pub fn update_player(
     forward.y = 0.0;
     forward = forward.normalize();
 
-    let right = Vec3::new(forward.z, 0.0, -forward.x);
+    let right = Vec3::new(-forward.z, 0.0, forward.x);
 
     let mut movement = Vec3::ZERO;
 
@@ -54,8 +55,15 @@ pub fn update_player(
         let speed = 6.0;
         transform.translation += movement * speed * delta;
 
-        let target_rot = Quat::from_rotation_y((-movement.x).atan2(-movement.z));
+        let target_rot = Quat::from_rotation_y((movement.x).atan2(movement.z));
 
         transform.rotation = transform.rotation.slerp(target_rot, 10.0 * delta);
     }
+    let moving = actions.move_up || actions.move_down || actions.move_left || actions.move_right;
+
+    player.state = if moving {
+        PlayerState::Running
+    } else {
+        PlayerState::Idle
+    };
 }

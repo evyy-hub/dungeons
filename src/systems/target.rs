@@ -1,7 +1,11 @@
+use avian3d::prelude::*;
+use bevy::ecs::relationship::Relationship;
 use bevy::prelude::*;
-use bevy::picking::pointer::PointerInteraction;
+use bevy::window::PrimaryWindow;
+use bevy_mod_outline::OutlineVolume;
 
-use crate::player::ennemy_test::Ennemy;
+use crate::combat::combat_stats::CombatStats;
+use crate::player::enemy_test::{Enemy, GameLayer};
 
 #[derive(Resource, Default)]
 pub struct CurrentTarget {
@@ -9,43 +13,87 @@ pub struct CurrentTarget {
 }
 
 pub fn on_enemy_clicked(
-    click: On<Pointer<Click>>,
+    mouse_button: Res<ButtonInput<MouseButton>>,
     mut current_target: ResMut<CurrentTarget>,
+    q_window: Query<&Window, With<PrimaryWindow>>,
+    q_camera: Query<(&Camera, &GlobalTransform)>,
+    spatial_query: SpatialQuery,
+    parent_query: Query<&ChildOf>,
+    stats_query: Query<&CombatStats>,
 ) {
-    if click.event().button == PointerButton::Primary {
-        current_target.entity = Some(click.event_target());
-    }
-}
+    if mouse_button.just_pressed(MouseButton::Left) {
+        if let Ok(window) = q_window.single() {
+            if let Some(cursor_pos) = window.cursor_position() {
+                for (camera, camera_transform) in q_camera.iter() {
+                    if let Ok(ray) = camera.viewport_to_world(camera_transform, cursor_pos) {
+                        if let Some(hit) = spatial_query.cast_ray(
+                            ray.origin,
+                            ray.direction,
+                            f32::MAX,
+                            true,
+                            &SpatialQueryFilter::default().with_mask(GameLayer::Enemy),
+                        ) {
+                            let mut target_entity = hit.entity;
 
-pub fn highlight_target(
-    current_target: Res<CurrentTarget>,
-    enemy_query: Query<(Entity, &MeshMaterial3d<StandardMaterial>), With<Ennemy>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-) {
-    for (entity, material_handle) in enemy_query.iter() {
-        if let Some(material) = materials.get_mut(material_handle) {
-            if current_target.entity == Some(entity) {
-                material.base_color = Color::srgb(1.0, 0.8, 0.0); // yellow/orange highlight
-            } else {
-                material.base_color = Color::srgb(1.0, 0.0, 1.0); // default magenta
+                            // If hit entity has no CombatStats, search for parent
+                            if stats_query.get(target_entity).is_err() {
+                                if let Ok(parent) = parent_query.get(target_entity) {
+                                    target_entity = parent.get();
+                                    println!(
+                                        "target clicked (child): {:?}, using parent: {:?}",
+                                        hit.entity, target_entity
+                                    );
+                                }
+                            } else {
+                                println!("target clicked: {:?}", target_entity);
+                            }
+
+                            current_target.entity = Some(target_entity);
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-pub fn clear_target_on_miss(
-    mouse: Res<ButtonInput<MouseButton>>,
-    mut current_target: ResMut<CurrentTarget>,
-    pointers: Query<&PointerInteraction>,
-    enemies: Query<Entity, With<Ennemy>>,
+pub fn highlight_target(
+    current_target: Res<CurrentTarget>,
+    mut enemy_query: Query<(Entity, &mut OutlineVolume), With<Enemy>>,
 ) {
-    if mouse.just_pressed(MouseButton::Left) {
-        // Check if pointer is hovering over an enemy (not just the ground)
-        let hovering_enemy = pointers.iter().any(|interaction| {
-            interaction.iter().any(|(entity, _)| enemies.get(*entity).is_ok())
-        });
-        if !hovering_enemy {
-            current_target.entity = None;
+    for (entity, mut outline) in enemy_query.iter_mut() {
+        outline.visible = current_target.entity == Some(entity);
+    }
+}
+
+pub fn clear_target_on_miss(
+    mut current_target: ResMut<CurrentTarget>,
+    mouse_button: Res<ButtonInput<MouseButton>>,
+    q_window: Query<&Window, With<PrimaryWindow>>,
+    q_camera: Query<(&Camera, &GlobalTransform)>,
+    spatial_query: SpatialQuery,
+) {
+    if mouse_button.just_pressed(MouseButton::Left) {
+        if let Ok(window) = q_window.single() {
+            if let Some(cursor_pos) = window.cursor_position() {
+                for (camera, camera_transform) in q_camera.iter() {
+                    if let Ok(ray) = camera.viewport_to_world(camera_transform, cursor_pos) {
+                        // Raycast to check if clicking on enemy
+                        let hit = spatial_query.cast_ray(
+                            ray.origin,
+                            ray.direction,
+                            f32::MAX,
+                            true,
+                            &SpatialQueryFilter::default().with_mask(GameLayer::Enemy),
+                        );
+
+                        if hit.is_none() {
+                            // Clear target if not clicking on enemy
+                            current_target.entity = None;
+                        }
+                    }
+                }
+            }
         }
     }
 }

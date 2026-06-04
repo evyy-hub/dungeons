@@ -1,30 +1,67 @@
 use bevy::prelude::*;
 
 use crate::combat::combat_stats::CombatStats;
+use crate::player::update_player_animation::CurrentAnim;
 use crate::systems::health::Health;
+
+#[derive(Component, Clone, Debug, PartialEq)]
+pub enum PlayerState {
+    Idle,
+    Running,
+}
+
+#[derive(Component)]
+pub struct PlayerAnimations {
+    pub idle: AnimationNodeIndex,
+    pub walk: AnimationNodeIndex,
+    pub run: AnimationNodeIndex,
+    pub graph: Handle<AnimationGraph>,
+}
 
 #[derive(Component)]
 pub struct Player {
     pub pos: Vec3,
-    
+    pub state: PlayerState,
 }
 
 pub fn setup_player(
     mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
+    asset_server: ResMut<AssetServer>,
+    mut graphs: ResMut<Assets<AnimationGraph>>,
 ) {
-    // Spawn player
+    let mut graph = AnimationGraph::new();
+    let idle = graph.add_clip(
+        asset_server.load(GltfAssetLabel::Animation(7).from_asset("mannequiny-0.4.0.gltf")),
+        1.0,
+        graph.root,
+    );
+    let walk = graph.add_clip(
+        asset_server.load(GltfAssetLabel::Animation(10).from_asset("mannequiny-0.4.0.gltf")),
+        1.0,
+        graph.root,
+    );
+    let run = graph.add_clip(
+        asset_server.load(GltfAssetLabel::Animation(9).from_asset("mannequiny-0.4.0.gltf")),
+        1.0,
+        graph.root,
+    );
+    let graph_handle = graphs.add(graph);
+
     commands.spawn((
-        Mesh3d(meshes.add(Capsule3d::default())),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            base_color: Color::srgb(1.0, 0.0, 0.0),
-            ..Default::default()
-        })),
-        Transform::from_xyz(0.0, 1.0, 0.0),
+        SceneRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("mannequiny-0.4.0.gltf"))),
+        Transform::from_xyz(0.0, 0.0, 0.0),
         Player {
-            pos: Vec3::new(0.0, 1.0, 0.0),
+            pos: Vec3::ZERO,
+            state: PlayerState::Idle,
         },
+        PlayerAnimations {
+            idle,
+            walk,
+            run,
+            graph: graph_handle.clone(),
+        },
+        CurrentAnim { index: None },
+        AnimationGraphHandle(graph_handle),
         Health::new(100.0),
         CombatStats::new(25.0, 10.0, 0.15, 2.0),
     ));

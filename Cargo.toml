@@ -5,10 +5,15 @@ edition = "2024"
 
 [dependencies]
 bevy = { version = "0.18.0", features = ["dynamic_linking", "serialize"] }
+bevy_gltf = "0.18.0"
+avian3d = { version = "0.6.1", features = ["3d"] }
+bevy_mod_outline = "0.12"
 rand = "0.9"
 serde = "1.0.228"
 serde_json = "1.0.149"
 toml = "0.9.8"
+
+
 # Enable a small amount of optimization in the dev profile.
 [profile.dev]
 opt-level = 1

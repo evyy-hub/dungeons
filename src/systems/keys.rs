@@ -141,5 +141,5 @@ pub fn keys_update(
     for mouse_ev in evr_mouse.read() {
         actions.update_from_input(config, None, Some(mouse_ev));
     }
-   // println!("{:#?}", *actions);
+    // println!("{:#?}", *actions);
 }
