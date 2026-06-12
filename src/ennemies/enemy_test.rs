@@ -85,7 +85,7 @@ pub fn spawn_enemy(
             Transform::from_xyz(30.0, 0.0, 0.0),
             Enemy {},
             Health::new(300.0),
-            CombatStats::new(15.0, 20.0, 0.05, 2.0),
+            CombatStats::new(15.0, 20.0, 0.05, 2.0, 2.0, 5.0, 2.0),
             EnemyAnimations {
                 idle,
                 walk,
@@ -102,13 +102,12 @@ pub fn spawn_enemy(
             },
         ))
         .with_child((
-            
-            Collider::capsule(0.4, 1.0), 
+            Collider::capsule(0.4, 1.0),
             CollisionLayers::new(
                 GameLayer::Enemy,
                 [GameLayer::Player, GameLayer::PlayerSpell],
             ),
-            Transform::from_xyz(0.0, 0.9, 0.5), 
+            Transform::from_xyz(0.0, 0.9, 0.5),
         ));
 
     commands
@@ -121,7 +120,7 @@ pub fn spawn_enemy(
             Transform::from_xyz(10.0, 1.0, 0.0),
             Enemy {},
             Health::new(1000.0),
-            CombatStats::new(15.0, 20.0, 0.05, 2.0),
+            CombatStats::new(15.0, 20.0, 0.05, 2.0, 2.0, 5.0, 2.0),
             OutlineVolume {
                 visible: false,
                 colour: Color::srgb(1.0, 0.8, 0.0),
@@ -135,7 +134,7 @@ pub fn spawn_enemy(
                 GameLayer::Enemy,
                 [GameLayer::Player, GameLayer::PlayerSpell],
             ),
-            Transform::from_xyz(0.0, 0.9, 0.5), 
+            Transform::from_xyz(0.0, 0.9, 0.5),
         ));
     commands
         .spawn((
@@ -144,7 +143,7 @@ pub fn spawn_enemy(
             ),
             Enemy {},
             Health::new(300.0),
-            CombatStats::new(15.0, 20.0, 0.05, 2.0),
+            CombatStats::new(15.0, 20.0, 0.05, 2.0, 2.0, 5.0, 2.0),
             EnemyAnimations {
                 idle,
                 walk,
@@ -163,13 +162,12 @@ pub fn spawn_enemy(
             },
         ))
         .with_child((
-            
-            Collider::capsule(0.4, 1.0), 
+            Collider::capsule(0.4, 1.0),
             CollisionLayers::new(
                 GameLayer::Enemy,
                 [GameLayer::Player, GameLayer::PlayerSpell],
             ),
-            Transform::from_xyz(0.0, 0.9, 0.5), 
+            Transform::from_xyz(0.0, 0.9, 0.5),
         ));
 }
 

@@ -1,0 +1,28 @@
+[[abilities]]
+name = "Fireball"
+description = "Launches a ball of fire that explodes on impact"
+mana_cost = 75.0
+cooldown = 3.0
+damage = 50.0
+damage_type = "Fire"
+range = 20.0
+area_of_effect = 3.0
+cast_time = 0.5
+
+[[abilities]]
+name = "Heal"
+description = "Restores health to the target"
+mana_cost = 25.0
+cooldown = 5.0
+healing = 40.0
+range = 15.0
+cast_time = 0.3
+
+[[abilities]]
+name = "Shield"
+description = "Creates a protective barrier"
+mana_cost = 40.0
+cooldown = 10.0
+shield_amount = 30.0
+duration = 5.0
+cast_time = 0.2

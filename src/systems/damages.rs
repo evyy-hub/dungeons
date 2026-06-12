@@ -1,6 +1,7 @@
 use crate::{
     combat::attack::AttackEvent,
-    player::{enemy_test::Enemy, player_setup::Player},
+    ennemies::enemy_test::Enemy,
+    player::player_setup::Player,
     systems::{death::DeathEvent, health::Health, target::CurrentTarget},
 };
 use bevy::prelude::*;
@@ -59,6 +60,7 @@ pub fn test_damages(
                 command.trigger(AttackEvent {
                     attacker: enemy_entity,
                     target: player_entity,
+                    spell_damage: 15.0,
                 });
             }
         }
@@ -77,6 +79,7 @@ pub fn test_damages(
                 command.trigger(AttackEvent {
                     attacker: player_entity,
                     target: target_entity,
+                    spell_damage: 15.0,
                 });
             } else {
                 println!("[Y] No target selected!");

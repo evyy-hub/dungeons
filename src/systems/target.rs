@@ -5,7 +5,7 @@ use bevy::window::PrimaryWindow;
 use bevy_mod_outline::OutlineVolume;
 
 use crate::combat::combat_stats::CombatStats;
-use crate::player::enemy_test::{Enemy, GameLayer};
+use crate::ennemies::enemy_test::{Enemy, GameLayer};
 
 #[derive(Resource, Default)]
 pub struct CurrentTarget {

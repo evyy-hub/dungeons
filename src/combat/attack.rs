@@ -8,6 +8,7 @@ use crate::systems::damages::DamageEvent;
 pub struct AttackEvent {
     pub attacker: Entity,
     pub target: Entity,
+    pub spell_damage: f32,
 }
 
 pub fn attack_system(trigger: On<AttackEvent>, query: Query<&CombatStats>, mut commands: Commands) {
@@ -29,7 +30,7 @@ pub fn attack_system(trigger: On<AttackEvent>, query: Query<&CombatStats>, mut c
         return;
     };
 
-    let mut damage = attacker_stats.attack_power;
+    let mut damage = event.spell_damage;
 
     let mut rng = rand::rng();
     let is_crit = rng.random::<f32>() < attacker_stats.crit_chance;
@@ -43,7 +44,7 @@ pub fn attack_system(trigger: On<AttackEvent>, query: Query<&CombatStats>, mut c
 
     println!(
         "[ATTACK_SYSTEM] Damage calculation: base={}, crit={}, armor_reduction={:.1}%, final={:.1}",
-        attacker_stats.attack_power,
+        event.spell_damage,
         is_crit,
         damage_reduction * 100.0,
         final_damage

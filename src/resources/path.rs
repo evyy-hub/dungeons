@@ -15,3 +15,4 @@ pub fn keys_config_path() -> PathBuf {
 pub fn player_config_path() -> PathBuf {
     create_config_path("player.toml")
 }
+
