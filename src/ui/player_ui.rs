@@ -3,7 +3,6 @@ use bevy::prelude::*;
 use crate::{
     player::player_setup::Player,
     systems::{health::Health, mana::Mana},
-    utils::get_single_component,
 };
 
 #[derive(Component)]
@@ -12,7 +11,7 @@ pub struct HpBar;
 #[derive(Component)]
 pub struct ManaBar;
 
-pub fn spawn_player_stats_ui(mut commands: Commands, query: Query<(&Health, &Mana), With<Player>>) {
+pub fn spawn_player_stats_ui(mut commands: Commands, _query: Query<(&Health, &Mana), With<Player>>) {
     commands
         .spawn((
             Node {
@@ -88,8 +87,7 @@ pub fn spawn_player_stats_ui(mut commands: Commands, query: Query<(&Health, &Man
 }
 pub fn update_bars(
     player_q: Query<(&Health, &Mana), With<Player>>,
-    mut hp_q: Query<&mut Node, With<HpBar>>,
-    mut mana_q: Query<&mut Node, With<ManaBar>>,
+    mut bars_q: Query<(&mut Node, Option<&HpBar>, Option<&ManaBar>)>,
 ) {
     let Ok((health, mana)) = player_q.single() else {
         return;
@@ -98,11 +96,11 @@ pub fn update_bars(
     let hp_ratio = health.get_current() / health.get_max();
     let mana_ratio = mana.get_current() / mana.get_max();
 
-    if let Ok(mut node) = hp_q.single_mut() {
-        node.width = Val::Percent(hp_ratio * 100.0);
-    }
-
-    if let Ok(mut node) = mana_q.single_mut() {
-        node.width = Val::Percent(mana_ratio * 100.0);
+    for (mut node, hp, mana_bar) in &mut bars_q {
+        if hp.is_some() {
+            node.width = Val::Percent(hp_ratio * 100.0);
+        } else if mana_bar.is_some() {
+            node.width = Val::Percent(mana_ratio * 100.0);
+        }
     }
 }

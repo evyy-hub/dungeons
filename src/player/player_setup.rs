@@ -63,7 +63,9 @@ pub fn setup_player(
     spellbook.learn("Fireball");
     spellbook.learn("Heal");
     commands.spawn((
-        SceneRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("mannequiny-0.4.0.gltf"))),
+        WorldAssetRoot(
+            asset_server.load(GltfAssetLabel::Scene(0).from_asset("mannequiny-0.4.0.gltf")),
+        ),
         Transform::from_xyz(0.0, 0.0, 0.0),
         Player {
             pos: Vec3::ZERO,

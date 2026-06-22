@@ -79,7 +79,7 @@ pub fn spawn_enemy(
 
     commands
         .spawn((
-            SceneRoot(
+            WorldAssetRoot(
                 asset_server.load(GltfAssetLabel::Scene(0).from_asset("mannequiny-0.4.0.gltf")),
             ),
             Transform::from_xyz(30.0, 0.0, 0.0),
@@ -138,7 +138,7 @@ pub fn spawn_enemy(
         ));
     commands
         .spawn((
-            SceneRoot(
+            WorldAssetRoot(
                 asset_server.load(GltfAssetLabel::Scene(0).from_asset("mannequiny-0.4.0.gltf")),
             ),
             Enemy {},

@@ -17,7 +17,7 @@ fn main() {
             ..default()
         }))
         .add_plugins((PhysicsPlugins::default(), PhysicsDebugPlugin::default()))
-        .add_plugins(OutlinePlugin)
+        .add_plugins(OutlinePlugin::EXTRUDE_VERTEX)
         .add_plugins(AutoGenerateOutlineNormalsPlugin::default())
         .add_plugins(MeshPickingPlugin)
         .add_plugins(GameSystemsPlugin)

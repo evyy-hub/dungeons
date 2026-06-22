@@ -29,7 +29,6 @@ impl Plugin for PlayerSystemPlugin {
             .add_systems(Update, setup_player_anim.after(setup_player))
             .add_systems(Update, update_player_animation)
             .add_systems(Update, update_player);
-        
     }
 }
 pub struct GameSystemsPlugin;
@@ -46,7 +45,6 @@ impl Plugin for GameSystemsPlugin {
             .add_systems(Update, highlight_target)
             .add_systems(Update, clear_target_on_miss)
             .add_systems(Startup, debug_abilities)
-            
             .add_observer(damage_system)
             .add_observer(death_system);
     }
@@ -60,14 +58,13 @@ impl Plugin for CombatSystemPlugin {
             .add_systems(Update, cast_from_input)
             .add_systems(Update, tick_cooldowns)
             .add_observer(on_cast);
-            
     }
 }
 
 pub struct PlayerUiSystem;
 impl Plugin for PlayerUiSystem {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_player_stats_ui);
-       
+        app.add_systems(Startup, spawn_player_stats_ui)
+            .add_systems(Update, update_bars);
     }
 }

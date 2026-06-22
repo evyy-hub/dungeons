@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = { version = "0.18.0", features = ["dynamic_linking", "serialize"] }
-bevy_gltf = "0.18.0"
-avian3d = { version = "0.6.1", features = ["3d"] }
-bevy_mod_outline = "0.12"
+bevy = { version = "0.19.0", features = ["dynamic_linking", "serialize"] }
+bevy_gltf = "0.19.0"
+avian3d = { version = "0.7.0", features = ["3d"] }
+bevy_mod_outline = { git = "https://github.com/komadori/bevy_mod_outline" }
 rand = "0.9"
 serde = "1.0.228"
 serde_json = "1.0.149"
