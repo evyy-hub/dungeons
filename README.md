@@ -11,4 +11,4 @@ A dungeon crawler built with Bevy and Rust.
 
 ## Status
 
-Personal, ongoing project — actively developed, no fixed release plan. See [TODO.md](./TODO.md) for what's next.
+Personal, ongoing project — actively developed, no fixed release plan. See [TODO.md](./TODO.MD) for what's next.
