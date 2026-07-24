@@ -2,12 +2,12 @@
 # TODO
 
 ## Core gameplay loop
-- DamageEvent / DeathEvent (Heatlh)
+- [✅]DamageEvent / DeathEvent (Heatlh)
 - [✅] Spell registry in TOML
 - [ ] Per-character spellbook (IDs only)
 - [✅] Cast a spell on target
 - [✅] Character stats (max HP, mana, defense)
-- [ ] Spell cooldowns and mana cost
+- [✅] Spell cooldowns and mana cost
 - [ ] Respawn / game over
 
 ## Content and fun
