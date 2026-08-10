@@ -2,7 +2,8 @@ use bevy::prelude::*;
 
 use crate::combat::combat_stats::CombatStats;
 use crate::combat::spell_cast::SpellCooldowns;
-use crate::player::update_player_animation::CurrentAnim;
+use crate::player::player_animation::CurrentAnim;
+use crate::systems::animation_names::AnimationNames;
 use crate::systems::health::Health;
 use crate::systems::mana::Mana;
 
@@ -24,10 +25,8 @@ impl SpellBook {
     }
 }
 #[derive(Component)]
-pub struct PlayerAnimations {
-    pub idle: AnimationNodeIndex,
-    pub walk: AnimationNodeIndex,
-    pub run: AnimationNodeIndex,
+pub struct EntityAnimations {
+    pub names: Handle<AnimationNames>,
     pub graph: Handle<AnimationGraph>,
 }
 
@@ -37,48 +36,29 @@ pub struct Player {
     pub state: PlayerState,
 }
 
-pub fn setup_player(
-    mut commands: Commands,
-    asset_server: ResMut<AssetServer>,
-    mut graphs: ResMut<Assets<AnimationGraph>>,
-) {
-    let mut graph = AnimationGraph::new();
-    let idle = graph.add_clip(
-        asset_server.load(GltfAssetLabel::Animation(7).from_asset("mannequiny-0.4.0.gltf")),
-        1.0,
-        graph.root,
-    );
-    let walk = graph.add_clip(
-        asset_server.load(GltfAssetLabel::Animation(10).from_asset("mannequiny-0.4.0.gltf")),
-        1.0,
-        graph.root,
-    );
-    let run = graph.add_clip(
-        asset_server.load(GltfAssetLabel::Animation(9).from_asset("mannequiny-0.4.0.gltf")),
-        1.0,
-        graph.root,
-    );
-    let graph_handle = graphs.add(graph);
+pub fn setup_player(mut commands: Commands, asset_server: ResMut<AssetServer>) {
+    
+    
+    let base = "models/Adventurer/Adventurer"; // adapte au nom réel du modèle joueur
+    let graph_handle: Handle<AnimationGraph> = asset_server.load(format!("{base}.animgraph.ron"));
+    let names: Handle<AnimationNames> = asset_server.load(format!("{base}.animnames.ron"));
     let mut spellbook = SpellBook::default();
     spellbook.learn("Fireball");
     spellbook.learn("Heal");
     commands.spawn((
         WorldAssetRoot(
-            asset_server.load(GltfAssetLabel::Scene(0).from_asset("mannequiny-0.4.0.gltf")),
+            asset_server.load(GltfAssetLabel::Scene(0).from_asset(format!("{base}.gltf"))),
         ),
         Transform::from_xyz(0.0, 0.0, 0.0),
         Player {
             pos: Vec3::ZERO,
             state: PlayerState::Idle,
         },
-        PlayerAnimations {
-            idle,
-            walk,
-            run,
+        EntityAnimations {
+            names,
             graph: graph_handle.clone(),
         },
         CurrentAnim { index: None },
-        AnimationGraphHandle(graph_handle),
         Health::new(100.0),
         Mana::new(100.0),
         spellbook,

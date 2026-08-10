@@ -4,14 +4,23 @@ A 3D dungeon crawler prototype built with Bevy and Rust.
 
 ## Features
 
-- Event-driven combat pipeline: `CastEvent → AttackEvent → DamageEvent → DeathEvent`
-- Data-driven spell system powered by TOML and a `SpellBook` component
-- Health and mana system
-- Third-person camera with rotation and zoom
-- Target selection using mesh picking
-- Physics and hitboxes powered by Avian3D
-- Mesh outlining with `bevy_mod_outline`
-- Combat damage calculations with critical strikes and armor mitigation
+* Event-driven combat pipeline: `CastEvent → AttackEvent → DamageEvent → DeathEvent`
+* Data-driven spell system powered by TOML and a `SpellBook` component
+* Health and mana system
+* Third-person camera with rotation and zoom
+* Target selection using mesh picking
+* Physics and hitboxes powered by Avian3D
+* Mesh outlining with `bevy_mod_outline`
+* Combat damage calculations with critical strikes and armor mitigation
+* Generic enemy spawning system
+* Data-driven animation setup using generated RON animation graphs and animation name mappings
+* Universal death animation system shared between players and enemies
+
+## Assets
+
+Character and enemy 3D models are provided by [Quaternius](https://quaternius.com/).
+
+The project uses Quaternius assets as a base for prototyping gameplay and game systems.
 
 ## Combat System
 
@@ -25,10 +34,10 @@ Damage resolution happens during the `AttackEvent` phase inside `combat::attack`
 
 The damage calculation takes into account:
 
-- Base spell damage
-- Critical hit chance
-- Critical damage multiplier
-- Target armor mitigation
+* Base spell damage
+* Critical hit chance
+* Critical damage multiplier
+* Target armor mitigation
 
 Damage calculation flow:
 
@@ -79,18 +88,18 @@ Final damage:
 
 ## Controls
 
-| Key | Action |
-|------|--------|
-| `Z Q S D` | Move |
-| `Right Mouse Button` + Mouse | Rotate camera |
-| `Mouse Wheel` | Zoom camera |
-| `Left Mouse Button` | Select target |
-| `Y` | Basic attack on nearby enemies |
-| `T` | Trigger nearby enemies to attack the player *(debug)* |
-| `J` | Cast spell (Fireball) |
-| `K` | Cast spell (Heal - placeholder) |
-| `L` | Spell slot 3 *(empty)* |
-| `M` | Spell slot 4 *(empty)* |
+| Key                          | Action                                                |
+| ---------------------------- | ----------------------------------------------------- |
+| `Z Q S D`                    | Move                                                  |
+| `Right Mouse Button` + Mouse | Rotate camera                                         |
+| `Mouse Wheel`                | Zoom camera                                           |
+| `Left Mouse Button`          | Select target                                         |
+| `Y`                          | Basic attack on nearby enemies                        |
+| `T`                          | Trigger nearby enemies to attack the player *(debug)* |
+| `J`                          | Cast spell (Fireball)                                 |
+| `K`                          | Cast spell (Heal - placeholder)                       |
+| `L`                          | Spell slot 3 *(empty)*                                |
+| `M`                          | Spell slot 4 *(empty)*                                |
 
 > **Note:** The Heal spell is available but its gameplay effect is not implemented yet. Spell slots 3 and 4 are currently placeholders.
 
@@ -98,8 +107,8 @@ Final damage:
 
 ### Requirements
 
-- Rust
-- Cargo
+* Rust
+* Cargo
 
 ### Run
 
@@ -113,10 +122,10 @@ Personal, ongoing project built to explore game architecture with Bevy ECS.
 
 Current focus:
 
-- Expanding the combat system
-- Enemy AI
-- Melee combat
-- Character classes
-- Experience system
+* Expanding the combat system
+* Enemy AI
+* Melee combat
+* Character classes
+* Experience system
 
 See [TODO.md](./TODO.md) for the full roadmap.

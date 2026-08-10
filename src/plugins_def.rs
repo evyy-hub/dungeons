@@ -4,7 +4,7 @@ use crate::ennemies::enemy_test::{propagate_enemy_outlines, setup_enemy_animatio
 use crate::player::player_setup::setup_player;
 use crate::player::player_update::update_player;
 
-use crate::player::update_player_animation::{setup_player_anim, update_player_animation};
+use crate::player::player_animation::{setup_player_anim, update_player_animation};
 use crate::systems::camera::camera_follow_system;
 use crate::systems::damages::{damage_system, test_damages /*test_damages*/};
 use crate::systems::death::death_system;

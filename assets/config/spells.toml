@@ -1,7 +1,7 @@
 [[abilities]]
 name = "Fireball"
 description = "Launches a ball of fire that explodes on impact"
-mana_cost = 75.0
+mana_cost = 20.0
 cooldown = 3.0
 damage = 50.0
 damage_type = "Fire"
@@ -12,7 +12,7 @@ cast_time = 0.5
 [[abilities]]
 name = "Heal"
 description = "Restores health to the target"
-mana_cost = 25.0
+mana_cost = 10.0
 cooldown = 5.0
 healing = 40.0
 range = 15.0

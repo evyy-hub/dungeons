@@ -1,4 +1,5 @@
 use bevy::{
+    camera::Hdr,
     input::mouse::{MouseMotion, MouseWheel},
     prelude::*,
     window::{CursorGrabMode, CursorOptions, PrimaryWindow},
@@ -14,14 +15,18 @@ pub struct FollowCamera {
 }
 
 pub fn setup_camera(mut commands: Commands) {
-    commands.spawn(DirectionalLight {
-        illuminance: 5000.0,
-
-        ..Default::default()
-    });
+    commands.spawn((
+        DirectionalLight {
+            illuminance: 10000.0,
+            shadow_maps_enabled: true,
+            ..default()
+        },
+        Transform::default().looking_at(Vec3::new(-0.3, -1.0, -0.3), Vec3::Y),
+    ));
 
     commands.spawn((
         Camera3d::default(),
+        Hdr,
         Transform::from_xyz(0.0, 7., 14.0).looking_at(Vec3::new(0., 1., 0.), Vec3::Y),
         FollowCamera {
             yaw: 0.0,
@@ -59,7 +64,7 @@ pub fn camera_follow_system(
         }
     }
 
-    // Clamp vertical rotation 
+    // Clamp vertical rotation
     follow.pitch = follow.pitch.clamp(-1.4, 1.4);
 
     // Handle mouse wheel zoom

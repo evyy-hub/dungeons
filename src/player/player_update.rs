@@ -1,10 +1,11 @@
 use crate::player::player_setup::PlayerState;
 use crate::systems::camera::FollowCamera;
+use crate::systems::death::Dead;
 use crate::{player::player_setup::Player, systems::keys::Actions};
 use bevy::prelude::*;
 
 pub fn update_player(
-    mut player_q: Query<(&mut Transform, &mut Player)>,
+    mut player_q: Query<(&mut Transform, &mut Player), Without<Dead>>,
     action_q: Query<&Actions>,
     camera_q: Query<(&FollowCamera, &Transform), Without<Player>>,
 

@@ -1,3 +1,2 @@
 /target
-/.claude
-/.continue
+/src/bin

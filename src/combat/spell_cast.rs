@@ -4,7 +4,7 @@ use bevy::prelude::*;
 use crate::{
     combat::attack::AttackEvent,
     player::player_setup::{Player, SpellBook},
-    systems::{load_abilities::AbilitiesConfig, mana::Mana, target::CurrentTarget},
+    systems::{death::Dead, load_abilities::AbilitiesConfig, mana::Mana, target::CurrentTarget},
 };
 
 #[derive(Event)]
@@ -84,7 +84,7 @@ pub fn on_cast(
 
 pub fn cast_from_input(
     mut commands: Commands,
-    p_query: Query<(&SpellBook, Entity), With<Player>>,
+    p_query: Query<(&SpellBook, Entity), (With<Player>, Without<Dead>)>,
     current_target: Res<CurrentTarget>,
     keys: Res<ButtonInput<KeyCode>>,
 ) {

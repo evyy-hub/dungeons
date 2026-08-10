@@ -1,0 +1,83 @@
+(
+    graph: (
+        nodes: [
+            (
+                node_type: Blend,
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation7"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation1"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation4"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation6"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation5"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation3"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation2"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation9"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation0"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation8"),
+                mask: 0,
+                weight: 1.0,
+            ),
+            (
+                node_type: Clip("models/mannequiny-0.4.0/mannequiny-0.4.0.gltf#Animation10"),
+                mask: 0,
+                weight: 1.0,
+            ),
+        ],
+        node_holes: [],
+        edge_property: directed,
+        edges: [
+            Some((0, 1, ())),
+            Some((0, 2, ())),
+            Some((0, 3, ())),
+            Some((0, 4, ())),
+            Some((0, 5, ())),
+            Some((0, 6, ())),
+            Some((0, 7, ())),
+            Some((0, 8, ())),
+            Some((0, 9, ())),
+            Some((0, 10, ())),
+            Some((0, 11, ())),
+        ],
+    ),
+    root: 0,
+    mask_groups: {},
+)

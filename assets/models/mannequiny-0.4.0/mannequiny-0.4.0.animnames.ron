@@ -1,0 +1,13 @@
+{
+    "air_jump": 9,
+    "air_jump_anticipation": 2,
+    "air_land": 7,
+    "dash": 6,
+    "fight_idle": 3,
+    "fight_kick": 5,
+    "fight_punch": 4,
+    "idle": 1,
+    "idle_to_fight": 10,
+    "run": 8,
+    "walk": 11,
+}

@@ -4,7 +4,7 @@ use bevy::prelude::*;
 use bevy_mod_outline::{AutoGenerateOutlineNormalsPlugin, OutlinePlugin};
 use dungeons::{
     plugins_def::{CombatSystemPlugin, GameSystemsPlugin, PlayerSystemPlugin, PlayerUiSystem},
-    systems::load_abilities::AbilitiesConfig,
+    systems::{animation_names::AnimationNamesPlugin, load_abilities::AbilitiesConfig},
 };
 
 fn main() {
@@ -23,6 +23,7 @@ fn main() {
         .add_plugins(GameSystemsPlugin)
         .add_plugins(PlayerSystemPlugin)
         .add_plugins(PlayerUiSystem)
+        .add_plugins(AnimationNamesPlugin)
         .insert_resource(AbilitiesConfig::default())
         .add_plugins(CombatSystemPlugin)
         .run();

@@ -1,12 +1,9 @@
 use bevy::prelude::*;
 use serde::{Deserialize, Serialize};
 
-// Embarqué au compile time — chemin relatif depuis ce fichier
 const DEFAULT_SPELLS_TOML: &str = include_str!("../../assets/config/spells.toml");
 
-// ---------------------------------------------------------------------------
 // Types
-// ---------------------------------------------------------------------------
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum DamageType {
@@ -34,9 +31,7 @@ pub struct Ability {
     pub area_of_effect: Option<f32>,
 }
 
-// ---------------------------------------------------------------------------
 // Config resource
-// ---------------------------------------------------------------------------
 
 #[derive(Debug, Resource, Serialize, Deserialize)]
 pub struct AbilitiesConfig {
@@ -50,9 +45,7 @@ impl Default for AbilitiesConfig {
     }
 }
 
-// ---------------------------------------------------------------------------
 // Components
-// ---------------------------------------------------------------------------
 
 #[derive(Component)]
 pub struct AbilityCooldown {

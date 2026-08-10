@@ -7,3 +7,4 @@ pub mod load_abilities;
 pub mod mana;
 pub mod target;
 pub mod testmap;
+pub mod animation_names;
