@@ -90,18 +90,20 @@ Final damage:
 
 | Key                          | Action                                                |
 | ---------------------------- | ----------------------------------------------------- |
-| `Z Q S D`                    | Move                                                  |
+| `W A S D`                    | Move                                                  |
 | `Right Mouse Button` + Mouse | Rotate camera                                         |
 | `Mouse Wheel`                | Zoom camera                                           |
 | `Left Mouse Button`          | Select target                                         |
-| `Y`                          | Basic attack on nearby enemies                        |
+| `Y`                          | Basic attack on nearby enemies *(debug)*              |
 | `T`                          | Trigger nearby enemies to attack the player *(debug)* |
 | `J`                          | Cast spell (Fireball)                                 |
-| `K`                          | Cast spell (Heal - placeholder)                       |
+| `K`                          | Cast spell (Heal)                                     |
 | `L`                          | Spell slot 3 *(empty)*                                |
 | `M`                          | Spell slot 4 *(empty)*                                |
+| `1`                          | Toggle AutoAttack                                     |
 
-> **Note:** The Heal spell is available but its gameplay effect is not implemented yet. Spell slots 3 and 4 are currently placeholders.
+
+> **Note:** Controls can be changed from the Settings > Controls menu. Keys are displayed using the QWERTY layout based on their physical positions. Each key can only have one binding, but the same action can be assigned to two different keys.
 
 ## Getting Started
 
