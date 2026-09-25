@@ -53,6 +53,8 @@ pub fn update_player_animation(
         let target_name = match player.state {
             PlayerState::Idle => "Idle",
             PlayerState::Running => "Run",
+            PlayerState::Jumping => "Jump",
+            PlayerState::Fighting => "Fight_Punch",
         };
 
         let Some(target) = names.try_get(target_name) else {
@@ -67,11 +69,15 @@ pub fn update_player_animation(
             if anim_player.is_playing_animation(target) {
                 break;
             }
+            if target_name == "air_jump" {
+                anim_player.stop_all();
+                anim_player.play(target);
+            } else {
+                anim_player.stop_all();
+                anim_player.play(target).repeat();
 
-            anim_player.stop_all();
-            anim_player.play(target).repeat();
-
-            break;
+                break;
+            }
         }
     }
 }

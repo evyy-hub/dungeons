@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use rand::Rng;
+use rand::RngExt;
 
 use super::combat_stats::CombatStats;
 use crate::systems::damages::DamageEvent;

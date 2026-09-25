@@ -1,8 +1,5 @@
 use crate::{
-    combat::attack::AttackEvent,
-    ennemies::enemy_test::Enemy,
-    player::player_setup::Player,
-    systems::{death::DeathEvent, health::Health, target::CurrentTarget},
+    combat::attack::AttackEvent, enemies::enemy_setup::Enemy, player::player_setup::Player, systems::{death::DeathEvent, health::Health, target::CurrentTarget}
 };
 use bevy::prelude::*;
 

@@ -1,7 +1,10 @@
 use bevy::{
     camera::Hdr,
+    core_pipeline::tonemapping::Tonemapping,
     input::mouse::{MouseMotion, MouseWheel},
+    post_process::bloom::Bloom,
     prelude::*,
+    render::view::{ColorGrading, ColorGradingGlobal},
     window::{CursorGrabMode, CursorOptions, PrimaryWindow},
 };
 
@@ -17,7 +20,7 @@ pub struct FollowCamera {
 pub fn setup_camera(mut commands: Commands) {
     commands.spawn((
         DirectionalLight {
-            illuminance: 10000.0,
+            illuminance: 1000.0,
             shadow_maps_enabled: true,
             ..default()
         },
@@ -33,6 +36,15 @@ pub fn setup_camera(mut commands: Commands) {
             pitch: 0.45,
             distance: 10.0,
         },
+        Tonemapping::None,
+        ColorGrading {
+            global: ColorGradingGlobal {
+                exposure: 0.0,
+                ..default()
+            },
+            ..default()
+        },
+        Bloom::NATURAL,
     ));
 }
 pub fn camera_follow_system(

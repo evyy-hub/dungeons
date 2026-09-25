@@ -4,10 +4,13 @@ use bevy_mod_outline::OutlineVolume;
 
 use crate::{
     combat::combat_stats::CombatStats,
-    ennemies::enemy_test::{Enemy, GameLayer},
+    enemies::enemy_test::GameLayer,
     player::player_setup::EntityAnimations,
     systems::{animation_names::AnimationNames, health::Health},
 };
+
+#[derive(Component)]
+pub struct Enemy;
 
 pub fn spawn_enemy_model(
     commands: &mut Commands,
@@ -33,7 +36,7 @@ pub fn spawn_enemy_model(
                 colour: Color::srgb(1.0, 0.8, 0.0),
                 width: 2.0,
             },
-            CombatStats::new(15.0, 20.0, 0.05, 2.0, 2.0, 5.0, 2.0),
+            CombatStats::new(15.0,10.0, 20.0, 20.0, 2.0, 2.0, 5.0, 2.0, 1.5),
             Health::new(300.0),
         ))
         .with_child((
@@ -42,7 +45,7 @@ pub fn spawn_enemy_model(
                 GameLayer::Enemy,
                 [GameLayer::Player, GameLayer::PlayerSpell],
             ),
-            Transform::from_xyz(0.0, 0.9, 0.5),
+            Transform::from_xyz(0.0, 0.9, 0.1),
         ))
         .id()
 }

@@ -41,7 +41,7 @@ pub struct AbilitiesConfig {
 impl Default for AbilitiesConfig {
     fn default() -> Self {
         toml::from_str(DEFAULT_SPELLS_TOML)
-            .expect("assets/config/spells.toml embarqué est invalide")
+            .expect("embedded assets/config/spells.toml is invalid")
     }
 }
 
@@ -57,7 +57,7 @@ pub struct AbilityCooldown {
 // Debug
 // ---------------------------------------------------------------------------
 pub fn debug_abilities(config: Res<AbilitiesConfig>) {
-    info!("=== Abilities chargées ({}) ===", config.abilities.len());
+    info!("=== Abilities loaded ({}) ===", config.abilities.len());
     for ability in &config.abilities {
         info!(
             "[{}] mana:{} cd:{}s cast:{}s | dmg:{:?} ({:?}) | heal:{:?} | shield:{:?} | range:{:?} | aoe:{:?} | duration:{:?}",

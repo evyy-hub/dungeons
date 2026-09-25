@@ -5,7 +5,9 @@ use bevy::window::PrimaryWindow;
 use bevy_mod_outline::OutlineVolume;
 
 use crate::combat::combat_stats::CombatStats;
-use crate::ennemies::enemy_test::{Enemy, GameLayer};
+use crate::enemies::enemy_setup::Enemy;
+use crate::enemies::enemy_test::GameLayer;
+use crate::systems::death::Dead;
 
 #[derive(Resource, Default)]
 pub struct CurrentTarget {
@@ -20,6 +22,7 @@ pub fn on_enemy_clicked(
     spatial_query: SpatialQuery,
     parent_query: Query<&ChildOf>,
     stats_query: Query<&CombatStats>,
+    dead_query: Query<Entity, With<Dead>>,
 ) {
     if mouse_button.just_pressed(MouseButton::Left) {
         if let Ok(window) = q_window.single() {
@@ -39,13 +42,18 @@ pub fn on_enemy_clicked(
                             if stats_query.get(target_entity).is_err() {
                                 if let Ok(parent) = parent_query.get(target_entity) {
                                     target_entity = parent.get();
-                                    println!(
-                                        "target clicked (child): {:?}, using parent: {:?}",
-                                        hit.entity, target_entity
-                                    );
+                                    //println!(
+                                    //    "target clicked (child): {:?}, using parent: {:?}",
+                                    //    hit.entity, target_entity
+                                    //);
                                 }
                             } else {
-                                println!("target clicked: {:?}", target_entity);
+                                //println!("target clicked: {:?}", target_entity);
+                            }
+
+                            if dead_query.get(target_entity).is_ok() {
+                                current_target.entity = None;
+                                continue;
                             }
 
                             current_target.entity = Some(target_entity);

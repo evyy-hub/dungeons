@@ -1,5 +1,7 @@
 pub mod combat;
-pub mod ennemies;
+pub mod core;
+pub mod enemies;
+pub mod menu;
 pub mod player;
 pub mod plugins_def;
 pub mod resources;
